@@ -10,6 +10,11 @@ class MyPDO extends PDO {
      
      public function __construct(){ 
      	if($this->is_server){
+     		$this->engine = 'mysql';
+     		$this->host = 'hdm111425330.my3w.com';
+     		$this->database = 'hdm111425330_db';
+     		$this->user = 'hdm111425330';
+     		$this->pass = 'sql6285720';
      		
      	}else{
      		$this->engine = 'mysql'; 
