@@ -68,6 +68,19 @@ class UserUtil {
 	 *
 	 */
 	public static function verify($session_id) {
+		$str_query = "select session_id from session where session_id=:id limit 1";
+		$db = new MyPDO ();
+		$result = $db->prepare ( $str_query );
+		$result->execute ( array (
+				':id' => $session_id
+		) );
+		$row = $result->fetch ();
+		$exist = $row ['session_id'];
+		if ($exist) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }
 

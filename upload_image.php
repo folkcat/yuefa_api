@@ -1,10 +1,27 @@
 <?php
+/*
+ * 功能：上传图片文件
+ * POST变量：session_id  文件
+ * 
+ *            result
+ * 成功                 1
+ * 失败                 0
+ * session无效   -1
+ */
 
 include_once './head/class.MyPDO.php';
+include_once './libs/class.UserUtil.php';
 
 $success_str="{\"result\":\"1\"}";
 $fail_str="{\"result\":\"0\"}";
+$erro_str="{\"result\":\"-1\"}";//session_id  失效
 
+if(!UserUtil::verify($_GET['session_id'])){
+	echo $erro_str;
+	exit;
+}
+
+$db=new MyPDO();
 
 header('Content-Type: text/plain; charset=utf-8');
 
@@ -69,26 +86,45 @@ try {
    // echo 'File is uploaded successfully.';
     $file_name= $store_name.".".$ext;
     //echo $file_name;
+    if(file_exist($file_name)){
+    	echo "file has been exist";
+    	echo  $success_str;
+    }else{
+    	echo "file not exist";
+    	insert_image($file_name);
+    	echo $success_str;
+    }
     
-    insert_image($file_name);
-    echo $success_str;
+    
     
     
 
 } catch (RuntimeException $e) {
 	echo $fail_str;
-
-   // echo $e->getMessage();
+	// echo $e->getMessage();
 
 }
-
-
+function file_exist($file_name){
+	global $db;
+	$str_query="select file_name from image where file_name=:file_name limit 1";
+	$result = $db->prepare ( $str_query );
+	$result->execute ( array (
+			':file_name' => $file_name
+	) );
+	$row = $result->fetch ();
+	$name = $row ['file_name'];
+	if($name){
+		return 1;
+	}else{
+		return 0;
+	}
+	
+}
 function insert_image($file_name){
+	global $db;
 	$str_query="insert into image set file_name='$file_name' ";
-	$db=new MyPDO();
 	$num=$db->exec($str_query);
 	return $num;
-
 }
 
 ?>

@@ -1,11 +1,12 @@
 <?php
-include_once './class.RegUtil.php';
-include_once './class.UserUtil.php';
+include_once './libs/class.UserUtil.php';
 
 
-//echo UserUtil::is_user("donghaifeng@hotmail.com", "123456");
-//echo RegUtil::is_email("123@123.org");
-
+if(UserUtil::verify("5qrtm8hofhc9u7ff24agc6oi6")){
+	echo "success";
+}else{
+	echo "fail";
+}
 
 
 ?>
