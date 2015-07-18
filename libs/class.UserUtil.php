@@ -68,22 +68,21 @@ class UserUtil {
 	 *
 	 */
 	public static function verify($session_id) {
-		$str_query = "select session_id from session where session_id=:id limit 1";
+		$str_query = "select email from session where session_id=:id limit 1";
 		$db = new MyPDO ();
 		$result = $db->prepare ( $str_query );
 		$result->execute ( array (
 				':id' => $session_id
 		) );
 		$row = $result->fetch ();
-		$exist = $row ['session_id'];
-		if ($exist) {
-			return 1;
+		$email = $row ['email'];
+		if ($email) {
+			return $email;
 		} else {
 			return 0;
 		}
 	}
 }
 
-echo UserUtil::get_nick_name("donghaifeng@hotmail.com");
 
 ?>

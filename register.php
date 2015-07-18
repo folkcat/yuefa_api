@@ -21,7 +21,7 @@ error_reporting(0);
 $email=$_GET['email'];
 $password=$_GET['password'];
 if(!$email|!$password){
-	echo "{\"result\":\"0\",\"session_id\":\"0\"}";//没有输入用户名或密码参数
+	echo "{\"result\":\"0\",\"session_id\":\"0\"}";//参数错误
 	exit;
 }
 

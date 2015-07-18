@@ -25,7 +25,7 @@ $email=$_GET['email'];
 $password=$_GET['password'];
 
 if(!$email|!$password){
-	echo gen_result(0);//致命错误
+	echo gen_result(0);//参数错误
 	exit;
 }
 
