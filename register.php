@@ -12,7 +12,6 @@
 include_once './head/class.MyPDO.php';
 include_once './libs/class.UserUtil.php';
 include_once './libs/class.RegUtil.php';
-include_once './libs/class.SessionUtil.php';
 include_once './libs/MySession.php';
 
 error_reporting(0);

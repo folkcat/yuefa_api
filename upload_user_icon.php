@@ -1,5 +1,17 @@
 <?php
+/*
+ * 功能：获取用户概要信息
+ * $_GET参数：session_id
+ * 
+ * 				result
+ * 正确：			1
+ * 参数错误			0
+ * session_id失效	-1
+ * 
+ * 
+ */
 include_once './head/class.MyPDO.php';
+include_once './head/Config.php';
 
 /*功能：上传用户头像图片
  * 
@@ -16,7 +28,6 @@ include_once './head/class.MyPDO.php';
  * 
  */
 error_reporting(0);
-$success_str = "{\"result\":\"1\"}";
 $erro_str = "{\"result\":\"0\"}";  //参数错误
 $fail_str = "{\"result\":\"-1\"}"; // session_id 失效
 $unknow_erro_str = "{\"result\":\"-2\"}"; // 其它错误
@@ -93,7 +104,8 @@ try {
 	$file_name = $store_name . "." . $ext;
 	// echo $file_name;
 	if(insert_image($file_name, $email)){
-		echo $success_str;
+		$url=$url_prefix."user_icon/".$file_name;
+		echo "{\"result\":\"1\",\"url\":\"".$url."\"}";
 	}else{
 		echo $unknow_erro_str;
 	}
