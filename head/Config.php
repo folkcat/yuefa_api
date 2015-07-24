@@ -1,3 +1,3 @@
 <?php
-$url_prefix="http://localhost/yuefa_api/";
+$url_prefix="http://www.yuefa.me/yuefa_api/";
 ?>
