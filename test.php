@@ -1,50 +1,35 @@
 <?php
 include_once './head/class.MyPDO.php';
+include_once './libs/class.RegUtil.php';
+
 
 $db = new MyPDO ();
 
-//insert_image("aaaaaa.jpg", "donghaifeng@hotmail.com");
-
-
-echo verify("gmn9bf1btiac25lvf6vumdd7q6");
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-function insert_image($file_name,$email) {
-	global $db;
-	$str_query = "update user_info set icon=:icon where email=:email ";
-	$result=$db->prepare($str_query);
-	$num = $result->execute(array('icon'=>$file_name,'email'=>$email));
-	echo  $num;
-}
-
-function verify($session_id) {//由于性能，从UserUtil复制而来
-	$str_query = "select email from session where session_id=:id limit 1";
-	global $db;
+function en_candidate($email, $password) {
+	global  $db;
+	$key=RegUtil::randomkeys(32);
+	$str_query = "insert into user_reg_candida (email,password,random_key) values(:email,:password,:key)";
 	$result = $db->prepare ( $str_query );
-	$result->execute ( array (
-			':id' => $session_id
+	$num = $result->execute ( array (
+			':email' => $email,
+			':password' => $password,
+			':key'=>$key
 	) );
-	$row = $result->fetch ();
-	$exist = $row ['email'];
-	if ($exist) {
-		return $exist;
-	} else {
-		return 0;
-	}
+	return $num;
 }
+
+if(en_candidate("1234@51234.com", "123456456"))
+	echo "Success";
+else 
+	echo "Fail";
+
+
+
+
 
 
 ?>

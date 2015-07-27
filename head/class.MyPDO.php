@@ -1,6 +1,6 @@
 <?php
 class MyPDO extends PDO {
-	private $is_server =1;
+	private $is_server =0;
 	private $engine;
 	private $host;
 	private $database;
