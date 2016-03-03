@@ -1,0 +1,7 @@
+<?php
+error_reporting(0);
+echo "hello ÄãºÃ";
+$a=$_POST['a'];
+if($a)
+	echo $a;
+?>
